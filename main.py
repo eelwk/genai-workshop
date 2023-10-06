@@ -25,7 +25,7 @@ index_name = os.environ["PINECONE_INDEX_NAME"]
 index = pinecone.Index(index_name=index_name)
 vectordb = Pinecone(index=index, embedding=embedding, text_key="text")
 
-initial_setup = False
+initial_setup = True
 
 if initial_setup:
     loader = PyPDFDirectoryLoader("data/")
