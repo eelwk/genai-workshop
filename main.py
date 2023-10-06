@@ -34,10 +34,12 @@ if initial_setup:
         environment=os.environ["PINECONE_ENVIRONMENT"],
     )
 
+    # Adding PDFs to DB
     vectordb.add_documents(splits)  # only need to run this once!
 
     print("Documents successfully added to Pinecone!")
 
+# Initialize the Assistant
 prompt_template = """
     1. You're an assistant that answers informations only about Dracula and Frankenstein. Don't answer questions about cookies or anything else.
 
@@ -54,6 +56,7 @@ prompt = PromptTemplate(
 
 chain_type_kwargs = {"prompt": prompt}
 
+# Initialize OpenAI
 llm_name = "gpt-3.5-turbo-0301"
 llm = ChatOpenAI(model_name=llm_name, temperature=0)
 
@@ -73,11 +76,11 @@ while True:
         print("Exitting the prompt as requested.")
         break
 
-    docs = vectordb.similarity_search(question, k=3)
-
     result = qa_chain(question)
 
     print(result["result"])
+    
+    docs = vectordb.similarity_search(question, k=3)
 
     source_document = result["source_documents"][0]
     print(source_document.metadata)
