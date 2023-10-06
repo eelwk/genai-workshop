@@ -13,8 +13,7 @@ from langchain import PromptTemplate
 _ = load_dotenv(find_dotenv())
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
-# make setup happen based on conditional (setup is lines 17-30)
-initial_setup = False
+initial_setup = True
 
 embedding = OpenAIEmbeddings()
 # Initialize Pinecone index
