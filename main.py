@@ -8,7 +8,7 @@ from langchain.vectorstores import Pinecone
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import RetrievalQA
-from langchain import PromptTemplate
+from langchain.prompts import PromptTemplate
 
 _ = load_dotenv(find_dotenv())
 openai.api_key = os.environ["OPENAI_API_KEY"]
