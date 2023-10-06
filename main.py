@@ -18,6 +18,10 @@ initial_setup = True
 embedding = OpenAIEmbeddings()
 # Initialize Pinecone index
 index_name = os.environ["PINECONE_INDEX_NAME"]
+pinecone.init(
+    api_key=os.environ["PINECONE_API_KEY"],
+    environment=os.environ["PINECONE_ENVIRONMENT"],
+)
 index = pinecone.Index(index_name=index_name)
 vectordb = Pinecone(index=index, embedding=embedding, text_key="text")
 
@@ -28,11 +32,6 @@ if initial_setup:
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1500, chunk_overlap=150)
 
     splits = text_splitter.split_documents(docs)
-
-    pinecone.init(
-        api_key=os.environ["PINECONE_API_KEY"],
-        environment=os.environ["PINECONE_ENVIRONMENT"],
-    )
 
     # Adding PDFs to DB
     vectordb.add_documents(splits)  # only need to run this once!
@@ -79,7 +78,7 @@ while True:
     result = qa_chain(question)
 
     print(result["result"])
-    
+
     docs = vectordb.similarity_search(question, k=3)
 
     source_document = result["source_documents"][0]
