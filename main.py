@@ -13,17 +13,19 @@ from langchain.prompts import PromptTemplate
 _ = load_dotenv(find_dotenv())
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
-initial_setup = True
-
-embedding = OpenAIEmbeddings()
-# Initialize Pinecone index
-index_name = os.environ["PINECONE_INDEX_NAME"]
+# Initialize Pinecone client
 pinecone.init(
     api_key=os.environ["PINECONE_API_KEY"],
     environment=os.environ["PINECONE_ENVIRONMENT"],
 )
+
+# Initialize Pinecone index
+embedding = OpenAIEmbeddings()
+index_name = os.environ["PINECONE_INDEX_NAME"]
 index = pinecone.Index(index_name=index_name)
 vectordb = Pinecone(index=index, embedding=embedding, text_key="text")
+
+initial_setup = False
 
 if initial_setup:
     loader = PyPDFDirectoryLoader("data/")
