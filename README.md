@@ -20,7 +20,7 @@
 
 - Copy .env.template file and rename to .env
 - Add your keys / values to the .env file
-- create pinecone index named `test-index`
+- create pinecone index named `test-index` with 1536 dimensions
 - run program with this command:
 
   `python main.py`
