@@ -65,7 +65,7 @@ qa_chain = RetrievalQA.from_chain_type(
     llm,
     retriever=vectordb.as_retriever(),
     return_source_documents=True,
-    chain_type_kwargs=chain_type_kwargs,
+    # chain_type_kwargs=chain_type_kwargs,
 )
 
 print("OpenAI and Pinecone successfully initialized!")
